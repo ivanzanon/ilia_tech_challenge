@@ -14,9 +14,9 @@ export class ImportMovieController {
 
       try {
         await this.importMovieUseCase.execute(id);
-        return response.sendStatus(201).json({ message: 'Movie successfully imported' });
+        return response.status(201).json({ message: 'Movie successfully imported' });
       } catch (error) {
-        return response.sendStatus(400).json({ message: error.message || 'Unexpected Error' });
+        return response.status(400).json({ message: error.message || 'Unexpected Error' });
       }
     }
 }

@@ -4,7 +4,7 @@ import { IImportMovieResponseDTO, IImportTranslationResponseDTO } from '../../us
 import { IMoviesService } from '../IMoviesService';
 
 export class TheMovieDBService implements IMoviesService {
-  async getMovie(id: number): Promise<IImportMovieResponseDTO> {
+  async getMovie(id: string): Promise<IImportMovieResponseDTO> {
     console.log('Puxando filmes da API');
 
     try {
@@ -21,7 +21,7 @@ export class TheMovieDBService implements IMoviesService {
     }
   }
 
-  async getTranslations(id: number): Promise<IImportTranslationResponseDTO> {
+  async getTranslations(id: string): Promise<IImportTranslationResponseDTO> {
     console.log('Puxando translations da API');
 
     try {

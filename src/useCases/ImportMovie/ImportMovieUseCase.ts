@@ -16,34 +16,39 @@ export class ImportMovieUseCase {
       this.moviesService = moviesService;
     }
 
-    async execute(movieID:number): Promise<void> {
-      const {
-        id,
-        title,
-        overview,
-      }:IImportMovieResponseDTO = await this.moviesService.getMovie(movieID);
+    async execute(movieID:string): Promise<void> {
+      try {
+        const {
+          id,
+          title,
+          overview,
+        }:IImportMovieResponseDTO = await this.moviesService.getMovie(movieID);
 
-      const {
-        translations,
-      }: IImportTranslationResponseDTO = await this.moviesService.getTranslations(movieID);
+        const {
+          translations,
+        }: IImportTranslationResponseDTO = await this.moviesService.getTranslations(movieID);
 
-      const movieUUID = v4();
-      const movie = new Movie({
-        id: movieUUID, originalId: id, title, overview,
-      });
-
-      await this.movieRepository.storeMovie(movie);
-
-      translations.map(async (translationItem) => {
-        const translationUUID = v4();
-        const translation = new Translation({
-          id: translationUUID,
-          englishName: translationItem.englishName,
-          name: translationItem.name,
-          overview: translationItem.overview,
-          movie: movieUUID,
+        const movieUUID = v4();
+        const movie = new Movie({
+          id: movieUUID, originalId: id, title, overview,
         });
-        await this.movieRepository.storeTranslation(translation);
-      });
+
+        await this.movieRepository.storeMovie(movie);
+
+        await Promise.all(translations.map(async (translationItem) => {
+          const translationUUID = v4();
+          const translation = new Translation({
+            id: translationUUID,
+            englishName: translationItem.englishName,
+            name: translationItem.name,
+            overview: translationItem.overview,
+            movie: movieUUID,
+          });
+          await this.movieRepository.storeTranslation(translation);
+          return translationItem;
+        }));
+      } catch (error) {
+        throw new Error(error);
+      }
     }
 }
