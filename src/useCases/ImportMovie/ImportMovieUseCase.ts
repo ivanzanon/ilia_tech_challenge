@@ -1,3 +1,5 @@
+import { v4 } from 'uuid';
+
 import { Movie } from '../../entities/Movie';
 import { IMoviesRepository } from '../../repositories/IMoviesRepository';
 import { IMoviesService } from '../../services/IMoviesService';
@@ -13,15 +15,17 @@ export class ImportMovieUseCase {
       this.moviesService = moviesService;
     }
 
-    async execute(movieID:string): Promise<void> {
+    async execute(movieID:number): Promise<void> {
       const {
         id,
         title,
         overview,
       }:IImportMovieResponseDTO = await this.moviesService.getMovie(movieID);
 
-      console.log(`${id} dasdasd ${title} dasdsada ${overview} fdsfsfs`);
-      const movie = new Movie({ id, title, overview });
+      const entityId = v4();
+      const movie = new Movie({
+        id: entityId, originalId: id, title, overview,
+      });
 
       await this.movieRepository.storeMovie(movie);
     }

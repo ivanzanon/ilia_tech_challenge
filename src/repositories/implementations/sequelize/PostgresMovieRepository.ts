@@ -6,7 +6,8 @@ export class PostgresMovieRepository implements IMoviesRepository {
   async storeMovie(movie: Movie): Promise<void> {
     try {
       await Movies.create({
-        id: '1',
+        id: movie.getId(),
+        originalId: movie.originalId,
         title: movie.title,
         overview: movie.overview,
       });

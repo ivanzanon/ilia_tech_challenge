@@ -4,7 +4,7 @@ import { IImportMovieResponseDTO } from '../../useCases/ImportMovie/ImportMovieD
 import { IMoviesService } from '../IMoviesService';
 
 export class TheMovieDBService implements IMoviesService {
-  async getMovie(id: string): Promise<IImportMovieResponseDTO> {
+  async getMovie(id: number): Promise<IImportMovieResponseDTO> {
     console.log('Puxando filmes da API');
 
     try {

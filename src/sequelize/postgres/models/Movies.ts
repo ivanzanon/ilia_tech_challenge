@@ -4,12 +4,15 @@ import database from '..';
 
 export interface MoviesAttributes {
     id: string;
+    originalId: string;
     title: string;
     overview: string;
 }
 
 export class Movies extends Model implements MoviesAttributes {
     id: string;
+
+    originalId: string;
 
     title: string;
 
@@ -19,6 +22,10 @@ export class Movies extends Model implements MoviesAttributes {
 Movies.init({
   id: {
     primaryKey: true,
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  originalId: {
     type: DataTypes.STRING,
     allowNull: false,
   },
