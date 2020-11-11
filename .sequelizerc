@@ -1,0 +1,6 @@
+module.exports = {
+  config: './src/sequelize/postgres/config/config.js',
+  'models-path': './src/sequelize/postgres/models',
+  'seeders-path': './src/sequelize/postgres/seeders',
+  'migrations-path': './src/sequelize/postgres/migrations',
+}

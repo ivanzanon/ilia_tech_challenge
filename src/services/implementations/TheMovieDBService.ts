@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-import { IImportMovieResponseDTO } from '../../useCases/ImportMovie/ImportMovieDTO';
+import { IImportMovieResponseDTO, IImportTranslationResponseDTO } from '../../useCases/ImportMovie/ImportMovieDTO';
 import { IMoviesService } from '../IMoviesService';
 
 export class TheMovieDBService implements IMoviesService {
-  async getMovie(id: string): Promise<IImportMovieResponseDTO> {
+  async getMovie(id: number): Promise<IImportMovieResponseDTO> {
     console.log('Puxando filmes da API');
 
     try {
@@ -21,7 +21,26 @@ export class TheMovieDBService implements IMoviesService {
     }
   }
 
-  getTranslations(id: number): Promise<any> {
-    throw new Error('Method not implemented.');
+  async getTranslations(id: number): Promise<IImportTranslationResponseDTO> {
+    console.log('Puxando translations da API');
+
+    try {
+      const { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/translations?api_key=957d44cc233e5e3e4d291376c005abb7`);
+
+      const translationDTO = data.translations.map((translationItem) => ({
+        id: translationItem.id,
+        name: translationItem.name,
+        englishName: translationItem.english_name,
+        overview: translationItem.data.overview,
+      }));
+
+      const importTranslationDTO:IImportTranslationResponseDTO = {
+        translations: translationDTO,
+      };
+
+      return (importTranslationDTO);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
