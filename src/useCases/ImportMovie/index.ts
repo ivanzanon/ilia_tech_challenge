@@ -1,10 +1,10 @@
 import { PostgresMovieRepository } from '../../repositories/implementations/sequelize/PostgresMovieRepository';
-import { TheMovieDB } from '../../services/implementations/TheMovieDB';
+import { TheMovieDBService } from '../../services/implementations/TheMovieDBService';
 import { ImportMovieController } from './ImportMovieController';
 import { ImportMovieUseCase } from './ImportMovieUseCase';
 
 const postgresMovieRepository = new PostgresMovieRepository();
-const theMovieDB = new TheMovieDB();
+const theMovieDB = new TheMovieDBService();
 
 const importMovieUseCase = new ImportMovieUseCase(postgresMovieRepository, theMovieDB);
 
