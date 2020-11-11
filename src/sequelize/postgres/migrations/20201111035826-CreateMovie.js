@@ -2,30 +2,20 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Movies', {
       id: {
-        primaryKey: true,
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
+        primaryKey: true,
       },
       originalId: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      englishName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      ovreview: Sequelize.STRING,
       title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      user: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      overview: {
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
