@@ -7,7 +7,14 @@ export class Translation {
 
     public overview: string;
 
-    constructor(props : {id: string, name: string, englishName: string, overview: string, }) {
+    public title: string;
+
+    constructor(props : {
+      id: string,
+      name: string,
+      englishName: string,
+      overview: string,
+      title: string }) {
       Object.assign(this, props);
     }
 }
