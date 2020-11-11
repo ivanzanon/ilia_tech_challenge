@@ -1,11 +1,10 @@
 import axios from 'axios';
-import { IImportMovieResponseDTO } from 'src/useCases/ImportMovie/ImportMovieDTO';
 
+import { IImportMovieResponseDTO } from '../../useCases/ImportMovie/ImportMovieDTO';
 import { IMoviesService } from '../IMoviesService';
-import { IImportMovieResponseDTO } from '../useCases/ImportMovie/ImportMovieDTO';
 
 export class TheMovieDBService implements IMoviesService {
-  async getMovie(id: number): Promise<IImportMovieResponseDTO> {
+  async getMovie(id: string): Promise<IImportMovieResponseDTO> {
     console.log('Puxando filmes da API');
 
     try {

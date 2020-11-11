@@ -1,14 +1,14 @@
 import { Movie } from '../../entities/Movie';
-import { IMovieRepository } from '../repositories/IMoviesRepository';
-import { IMoviesService } from '../services/IMoviesService';
+import { IMoviesRepository } from '../../repositories/IMoviesRepository';
+import { IMoviesService } from '../../services/IMoviesService';
 import { IImportMovieResponseDTO } from './ImportMovieDTO';
 
 export class ImportMovieUseCase {
-    private movieRepository: IMovieRepository;
+    private movieRepository: IMoviesRepository;
 
     private moviesService: IMoviesService;
 
-    constructor(movieRepository: IMovieRepository, moviesService: IMoviesService) {
+    constructor(movieRepository: IMoviesRepository, moviesService: IMoviesService) {
       this.movieRepository = movieRepository;
       this.moviesService = moviesService;
     }
@@ -23,6 +23,6 @@ export class ImportMovieUseCase {
       console.log(`${id} dasdasd ${title} dasdsada ${overview} fdsfsfs`);
       const movie = new Movie({ id, title, overview });
 
-      await this.movieRepository.store(movie);
+      await this.movieRepository.storeMovie(movie);
     }
 }

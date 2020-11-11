@@ -50,7 +50,7 @@
     "settings": {
         "import/resolver": {
             "typescript": {
-                "directory": "packages/server/*/tsconfig.json"
+                "directory": "./tsconfig.json"
             },
             "node": {
                 "extensions": [".js", ".jsx", ".ts", ".tsx"]

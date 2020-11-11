@@ -1,7 +1,7 @@
-import { Language } from '../entities/Language';
+import { Translation } from '../entities/Translation';
 import { IImportMovieResponseDTO } from '../useCases/ImportMovie/ImportMovieDTO';
 
 export interface IMoviesService {
-    getMovie(id:number):Promise<IImportMovieResponseDTO>;
-    getTranslations(id:number):Promise<Language>;
+    getMovie(id:string):Promise<IImportMovieResponseDTO>;
+    getTranslations(id:number):Promise<Translation>;
 }

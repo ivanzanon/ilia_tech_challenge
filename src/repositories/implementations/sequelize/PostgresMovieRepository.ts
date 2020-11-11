@@ -1,7 +1,7 @@
 import { Movie } from '../../../entities/Movie';
-import { IMovieRepository } from '../../repositories/IMoviesRepository';
+import { IMoviesRepository } from '../../IMoviesRepository';
 
-export class PostgresMovieRepository implements IMovieRepository {
+export class PostgresMovieRepository implements IMoviesRepository {
   storeMovie(movie: Movie): Promise<void> {
     throw new Error('Method not implemented.');
   }
