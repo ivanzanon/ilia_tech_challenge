@@ -5,12 +5,12 @@ export interface IImportMovieResponseDTO {
 }
 
 export interface IImportTranslationResponseDTO {
-    translations: [
-        {
-            id: string;
-            name: string;
-            englishName: string;
-            overview: string;
-        }
-    ]
+    id: string;
+    name: string;
+    englishName: string;
+    overview: string;
+}
+
+export interface IImportTranslationResponseDTOArray {
+    translations: IImportTranslationResponseDTO[]
 }

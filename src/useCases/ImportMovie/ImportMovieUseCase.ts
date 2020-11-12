@@ -4,7 +4,7 @@ import { Movie } from '../../entities/Movie';
 import { Translation } from '../../entities/Translation';
 import { IMoviesRepository } from '../../repositories/IMoviesRepository';
 import { IMoviesService } from '../../services/IMoviesService';
-import { IImportMovieResponseDTO, IImportTranslationResponseDTO } from './ImportMovieDTO';
+import { IImportMovieResponseDTO, IImportTranslationResponseDTO, IImportTranslationResponseDTOArray } from './ImportMovieDTO';
 
 export class ImportMovieUseCase {
     private movieRepository: IMoviesRepository;
@@ -26,7 +26,7 @@ export class ImportMovieUseCase {
 
         const {
           translations,
-        }: IImportTranslationResponseDTO = await this.moviesService.getTranslations(movieID);
+        }: IImportTranslationResponseDTOArray = await this.moviesService.getTranslations(movieID);
 
         const movieUUID = v4();
         const movie = new Movie({
@@ -35,18 +35,20 @@ export class ImportMovieUseCase {
 
         await this.movieRepository.storeMovie(movie);
 
-        await Promise.all(translations.map(async (translationItem) => {
-          const translationUUID = v4();
-          const translation = new Translation({
-            id: translationUUID,
-            englishName: translationItem.englishName,
-            name: translationItem.name,
-            overview: translationItem.overview,
-            movie: movieUUID,
-          });
-          await this.movieRepository.storeTranslation(translation);
-          return translationItem;
-        }));
+        await Promise.all(
+          translations.map(async (translationItem) => {
+            const translationUUID = v4();
+            const translation = new Translation({
+              id: translationUUID,
+              englishName: translationItem.englishName,
+              name: translationItem.name,
+              overview: translationItem.overview,
+              movie: movieUUID,
+            });
+            await this.movieRepository.storeTranslation(translation);
+            return translationItem;
+          }),
+        );
       } catch (error) {
         throw new Error(error);
       }
