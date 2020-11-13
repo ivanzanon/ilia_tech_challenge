@@ -24,6 +24,10 @@ export class ImportMovieUseCase {
           overview,
         }:IImportMovieResponseDTO = await this.moviesService.getMovie(movieID);
 
+        if (id === '0') {
+          throw new Error('Movie id not found on Movie Service');
+        }
+
         const {
           translations,
         }: IImportTranslationResponseDTOArray = await this.moviesService.getTranslations(movieID);
@@ -35,22 +39,24 @@ export class ImportMovieUseCase {
 
         await this.movieRepository.storeMovie(movie);
 
-        await Promise.all(
-          translations.map(async (translationItem) => {
-            const translationUUID = v4();
-            const translation = new Translation({
-              id: translationUUID,
-              englishName: translationItem.englishName,
-              name: translationItem.name,
-              overview: translationItem.overview,
-              movie: movieUUID,
-            });
-            await this.movieRepository.storeTranslation(translation);
-            return translationItem;
-          }),
-        );
+        if (translations) {
+          await Promise.all(
+            translations.map(async (translationItem) => {
+              const translationUUID = v4();
+              const translation = new Translation({
+                id: translationUUID,
+                englishName: translationItem.englishName,
+                name: translationItem.name,
+                overview: translationItem.overview,
+                movie: movieUUID,
+              });
+              await this.movieRepository.storeTranslation(translation);
+              return translationItem;
+            }),
+          );
+        }
       } catch (error) {
-        throw new Error(error);
+        throw new Error(error.message || 'Unexpected error');
       }
     }
 }
