@@ -1,6 +1,6 @@
-import { IImportMovieResponseDTO, IImportTranslationResponseDTO } from '../useCases/ImportMovie/ImportMovieDTO';
+import { IImportMovieResponseDTO, IImportTranslationResponseDTOArray } from '../useCases/ImportMovie/ImportMovieDTO';
 
 export interface IMoviesService {
-    getMovie(id:number):Promise<IImportMovieResponseDTO>;
-    getTranslations(id:number):Promise<IImportTranslationResponseDTO>;
+    getMovie(id:string):Promise<IImportMovieResponseDTO>;
+    getTranslations(id:string):Promise<IImportTranslationResponseDTOArray>;
 }
