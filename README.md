@@ -35,7 +35,7 @@ Configure your connection with PostGres on the ./.env file setting the following
 
 Run the Script for migration of the Models:
 
-    npm run sqlize-migrate
+    npx sequelize db:migrate
 
 Run the script for start server:
 
