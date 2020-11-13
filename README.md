@@ -9,7 +9,7 @@ Developed using:
     Node ^v12.16.3^
     Postgres Docker conteiner
 
-This API exposes ume endpoint:
+This API exposes one endpoint:
 
     http://localhost:3002/movies/?id
 
