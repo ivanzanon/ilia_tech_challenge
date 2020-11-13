@@ -2,7 +2,7 @@
 ***ILIA Challenge***
 -----------------------
 
-API for the importing movies from an external API.
+API that imports movies from an external API.
 
 Developed using:
 
